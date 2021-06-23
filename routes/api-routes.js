@@ -1,16 +1,16 @@
-const fs = require('fs');
-const util = require('util');
-const uuidv1 = require('uuid/v1');
+const fs = require("fs");
+const util = require("util");
+const uuidv1 = require("uuid/v1");
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
-class Store {
+class store {
   read() {
-    return readFileAsync('../db/db.json', 'utf8');
+    return readFileAsync("../db/db.json", "utf8");
   }
   write(note) {
-    return writeFileAsync('../db/db.json', JSON.stringify(note));
+    return writeFileAsync("../db/db.json", JSON.stringify(note));
   }
 
   getNotes() {
@@ -39,4 +39,22 @@ class Store {
       .then((filteredNotes) => this.write(filteredNotes));
   }
 }
+
+module.exports = (app) => {
+    app.get("/notes", (req, res) => {
+    store.getNotes().then((notes) => {
+        return res.json(notes);
+      })
+      .catch((err) => res.status(500).json(err));
+  });
   
+    app.post("/notes", (req, res) => {
+    store.addNote(req.body).then((note) => res.json(note))
+      .catch((err) => res.status(500).json(err));
+  });
+  
+    app.delete("/notes/:id", (req, res) => {
+    store.removeNote(req.params.id).then(() => res.json({ ok: true }))
+      .catch((err) => res.status(500).json(err));
+  });
+};
