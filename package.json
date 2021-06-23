@@ -1,0 +1,23 @@
+{
+  "name": "hw9-note-taker",
+  "version": "1.0.0",
+  "description": "Application used to write and save notes",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imanjit/hw9-note-taker.git"
+  },
+  "author": "https://github.com/imanjit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imanjit/hw9-note-taker/issues"
+  },
+  "homepage": "https://github.com/imanjit/hw9-note-taker#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
